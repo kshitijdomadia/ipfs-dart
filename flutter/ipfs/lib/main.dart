@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'IPFS Demo'),
     );
   }
 }
@@ -60,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      print('Incremented by one');
     });
   }
 
@@ -97,12 +98,31 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            TextField(
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter text',
+                    alignLabelWithHint: true)),
+            FlatButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                disabledColor: Colors.grey,
+                disabledTextColor: Colors.black,
+                padding: EdgeInsets.all(8.0),
+                splashColor: Colors.blueAccent,
+                onPressed: () {
+                  /*...*/
+                },
+                child: Text(
+                  "Send",
+                )),
             Text(
-              'You have pushed the button this many times:',
+              'Your sent hash appears here:',
+              style: Theme.of(context).textTheme.headline6,
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: TextStyle(fontSize: 15.0),
             ),
           ],
         ),
