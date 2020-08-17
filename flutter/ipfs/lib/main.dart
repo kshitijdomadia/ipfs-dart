@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+//import 'package:js/js.dart';
 
 void main() {
   runApp(MyApp());
 }
+
+//('ipfs-http-client');
+// const ipfs = ipfsClient({
+//   host:
+//       '/ip4/192.168.0.106/tcp/4001/p2p/Qmbr8XUBNW22yCcerTqQDgqVYLfEDGF67Pn46zoYN9qXni',
+//   port: 5001,
+//   protocol: 'https'
+// }); // leaving out the arguments will default to these values
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
