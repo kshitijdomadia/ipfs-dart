@@ -1,4 +1,4 @@
-# ipfs
+# ipfsSCDemo
 
 A new Flutter project.
 

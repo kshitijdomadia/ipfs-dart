@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ipfs/ipfs.dart';
+import 'package:chopper/chopper.dart';
+import 'package:grpc/grpc.dart';
+import 'package:path/path.dart';
+import 'package:protobuf/protobuf.dart';
+import 'package:dio/dio.dart';
+
 //import 'package:js/js.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-//('ipfs-http-client');
-// const ipfs = ipfsClient({
+//('ipfsSCDemo-http-client');
+// const ipfsSCDemo = ipfsSCDemoClient({
 //   host:
 //       '/ip4/192.168.0.106/tcp/4001/p2p/Qmbr8XUBNW22yCcerTqQDgqVYLfEDGF67Pn46zoYN9qXni',
 //   port: 5001,
@@ -36,7 +43,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'IPFS Demo'),
+      home: MyHomePage(title: 'ipfsSCDemo Demo'),
     );
   }
 }
