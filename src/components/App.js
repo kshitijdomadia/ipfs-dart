@@ -8,50 +8,50 @@ const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' 
 
 class App extends Component {
 
-  async componentWillMount() {
-    await this.loadWeb3()
-    await this.loadBlockchainData()
-  }
+  // async componentWillMount() {
+  //   await this.loadWeb3()
+  //   await this.loadBlockchainData()
+  // }
 
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum)
-      await window.ethereum.enable()
-    }
-    else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider)
-    }
-    else {
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-    }
-  }
+  // async loadWeb3() {
+  //   if (window.ethereum) {
+  //     window.web3 = new Web3(window.ethereum)
+  //     await window.ethereum.enable()
+  //   }
+  //   else if (window.web3) {
+  //     window.web3 = new Web3(window.web3.currentProvider)
+  //   }
+  //   else {
+  //     window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+  //   }
+  // }
 
-  async loadBlockchainData() {
-    const web3 = window.web3
-    // Load account
-    const accounts = await web3.eth.getAccounts()
-    this.setState({ account: accounts[0] })
-    const networkId = await web3.eth.net.getId()
-    const networkData = Meme.networks[networkId]
-    if(networkData) {
-      const contract = web3.eth.Contract(Meme.abi, networkData.address)
-      this.setState({ contract })
-      const memeHash = await contract.methods.get().call()
-      this.setState({ memeHash })
-    } else {
-      window.alert('Smart contract not deployed to detected network.')
-    }
-  }
+  // async loadBlockchainData() {
+  //   const web3 = window.web3
+  //   // Load account
+  //   const accounts = await web3.eth.getAccounts()
+  //   this.setState({ account: accounts[0] })
+  //   const networkId = await web3.eth.net.getId()
+  //   const networkData = Meme.networks[networkId]
+  //   if(networkData) {
+  //     const contract = web3.eth.Contract(Meme.abi, networkData.address)
+  //     this.setState({ contract })
+  //     const memeHash = await contract.methods.get().call()
+  //     this.setState({ memeHash })
+  //   } else {
+  //     window.alert('Smart contract not deployed to detected network.')
+  //   }
+  // }
 
   constructor(props) {
     super(props)
 
     this.state = {
-      memeHash: '',
-      contract: null,
-      web3: null,
+      //memeHash: '',
+      //contract: null,
+      //web3: null,
       buffer: null,
-      account: null
+      //account: null
     }
   }
 
@@ -75,13 +75,13 @@ class App extends Component {
         console.error(error)
         return
       }
-       this.state.contract.methods.set(result[0].hash).send({ from: this.state.account }).then((r) => {
-         return this.setState({ memeHash: result[0].hash })
+      //  this.state.contract.methods.set(result[0].hash).send({ from: this.state.account }).then((r) => {
+      //    return this.setState({ memeHash: result[0].hash })
        })
-    })
+    }
   }
 
-  render() {
+  render() 
     return (
       <div>
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -117,7 +117,7 @@ class App extends Component {
         </div>
       </div>
     );
-  }
-}
+  
+
 
 export default App;
