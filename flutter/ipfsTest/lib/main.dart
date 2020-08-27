@@ -1,28 +1,15 @@
 import 'package:flutter/material.dart';
-//import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 // import 'package:chopper/chopper.dart';
 // import 'package:grpc/grpc.dart';
 // import 'package:path/path.dart';
 // import 'package:protobuf/protobuf.dart';
-//import 'package:dio/dio.dart';
-
+import 'package:dio/dio.dart';
+import 'dart:convert';
 //import 'package:js/js.dart';
 
 void main() {
   runApp(MyApp());
-  // Ipfs ipfs = Ipfs();
-
-  // // This method will return a list of peers in the swarm
-  // ipfs.getPeers();
-
-  // // The cid or content identifier has to be of type string
-  // String cid = 'bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m';
-
-  // // Fetches an ipfs object
-  // ipfs.getObject(cid);
-
-  // // Traverses through a DAG given its root cid
-  // ipfs.resolveDag(cid);
 }
 
 //('ipfsSCDemo-http-client');
@@ -80,6 +67,33 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String jsoon;
+  String testman = "this is a test";
+
+  Future getObject() async {
+    try {
+      const JsonCodec json = JsonCodec();
+      final response = await Dio().get(
+          'https://ipfs.io/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m#x-ipfs-companion-no-redirect');
+      var data = response.toString();
+      var json_decode = json.decode(data);
+
+      setState(() {
+        jsoon = json_decode;
+      });
+
+      //JsonEncoder encoder = JsonEncoder.withIndent('  ');
+      //String prettyprint = encoder.convert(json);
+
+      //var object = Object.fromJson(json_decode);
+      print(json_decode);
+
+      return json_decode;
+      //print(prettyprint);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -139,9 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 disabledTextColor: Colors.black,
                 padding: EdgeInsets.all(8.0),
                 splashColor: Colors.blueAccent,
-                onPressed: () {
-                  /*...*/
-                },
+                onPressed: getObject,
                 child: Text(
                   "Send",
                 )),
@@ -150,17 +162,13 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline6,
             ),
             Text(
-              '$_counter',
+              '$jsoon',
               style: TextStyle(fontSize: 15.0),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
