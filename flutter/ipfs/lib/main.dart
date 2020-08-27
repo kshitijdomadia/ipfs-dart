@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:ipfs/ipfs.dart';
-import 'package:chopper/chopper.dart';
-import 'package:grpc/grpc.dart';
-import 'package:path/path.dart';
-import 'package:protobuf/protobuf.dart';
-import 'package:dio/dio.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:ipfs/ipfs.dart';
+// import 'package:chopper/chopper.dart';
+// import 'package:grpc/grpc.dart';
+// import 'package:path/path.dart';
+// import 'package:protobuf/protobuf.dart';
+// import 'package:dio/dio.dart';
 
 //import 'package:js/js.dart';
 
 void main() {
   runApp(MyApp());
+  // Ipfs ipfs = Ipfs();
+
+  // // This method will return a list of peers in the swarm
+  // ipfs.getPeers();
+
+  // // The cid or content identifier has to be of type string
+  // String cid = 'bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m';
+
+  // // Fetches an ipfs object
+  // ipfs.getObject(cid);
+
+  // // Traverses through a DAG given its root cid
+  // ipfs.resolveDag(cid);
 }
 
 //('ipfsSCDemo-http-client');
