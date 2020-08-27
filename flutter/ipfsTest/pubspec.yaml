@@ -36,7 +36,7 @@ dependencies:
   grpc: ^2.2.0
   path: ^1.7.0
   protobuf: ^1.0.1
-  dio: ^2.1.6
+  #dio: ^3.0.10
   #js: ^0.6.2
   #ipfs-http-client: ^46.0.0
 
