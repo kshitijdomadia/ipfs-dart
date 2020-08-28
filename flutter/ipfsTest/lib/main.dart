@@ -155,14 +155,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 splashColor: Colors.blueAccent,
                 onPressed: getObject,
                 child: Text(
-                  "Send",
+                  "Receive from Dummy IPFS",
+                )),
+            FlatButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                disabledColor: Colors.grey,
+                disabledTextColor: Colors.black,
+                padding: EdgeInsets.all(8.0),
+                splashColor: Colors.blueAccent,
+                onPressed: getObject,
+                child: Text(
+                  "Send to IPFS",
                 )),
             Text(
-              'Your sent hash appears here:',
+              'Data:',
               style: Theme.of(context).textTheme.headline6,
             ),
             Text(
               '$jsoon',
+              style: TextStyle(fontSize: 15.0),
+            ),
+            Text(
+              'Sent Hash appears here:',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            Text(
+              'null',
               style: TextStyle(fontSize: 15.0),
             ),
           ],
