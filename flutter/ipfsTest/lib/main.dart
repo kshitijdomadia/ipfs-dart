@@ -76,19 +76,19 @@ class _MyHomePageState extends State<MyHomePage> {
       final response = await Dio().get(
           'https://ipfs.io/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m#x-ipfs-companion-no-redirect');
       var data = response.toString();
-      var json_decode = json.decode(data);
+      //var json_decode = json.decode(data);
 
       setState(() {
-        jsoon = json_decode;
+        jsoon = data;
       });
 
       //JsonEncoder encoder = JsonEncoder.withIndent('  ');
       //String prettyprint = encoder.convert(json);
 
       //var object = Object.fromJson(json_decode);
-      print(json_decode);
+      print(data);
 
-      return json_decode;
+      return data;
       //print(prettyprint);
     } catch (e) {
       print(e);
