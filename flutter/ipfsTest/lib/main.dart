@@ -68,7 +68,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String jsoon;
-  String testman = "this is a test";
+  String hash;
+  String teststr = "this is a test";
+  final hashCon = new TextEditingController();
 
   Future getObject() async {
     try {
@@ -80,6 +82,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
       setState(() {
         jsoon = data;
+      });
+
+      //JsonEncoder encoder = JsonEncoder.withIndent('  ');
+      //String prettyprint = encoder.convert(json);
+
+      //var object = Object.fromJson(json_decode);
+      print(data);
+
+      return data;
+      //print(prettyprint);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future sendObject() async {
+    try {
+      const JsonCodec json = JsonCodec();
+      final response = await Dio().post('https://ipfs.io/', data: hash);
+      var data = response.toString();
+      //var json_decode = json.decode(data);
+
+      setState(() {
+        hash = hashCon.text;
       });
 
       //JsonEncoder encoder = JsonEncoder.withIndent('  ');
@@ -142,8 +168,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
+                controller: hashCon,
                 decoration: InputDecoration(
-                    border: InputBorder.none,
+                    //border: InputBorder.none,
                     hintText: 'Enter text',
                     alignLabelWithHint: true)),
             FlatButton(
@@ -164,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 disabledTextColor: Colors.black,
                 padding: EdgeInsets.all(8.0),
                 splashColor: Colors.blueAccent,
-                onPressed: getObject,
+                onPressed: sendObject,
                 child: Text(
                   "Send to IPFS",
                 )),
@@ -181,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline6,
             ),
             Text(
-              'null',
+              '$hash',
               style: TextStyle(fontSize: 15.0),
             ),
           ],
