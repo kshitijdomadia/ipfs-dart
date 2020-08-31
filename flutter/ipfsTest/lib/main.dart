@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // import 'package:path/path.dart';
 // import 'package:protobuf/protobuf.dart';
 import 'package:dio/dio.dart';
-import 'dart:convert';
+//import 'dart:convert';
 //import 'package:js/js.dart';
 
 void main() {
@@ -66,15 +66,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  //int _counter = 0;
   String jsoon;
+  String text;
   String hash;
   String teststr = "this is a test";
-  final hashCon = new TextEditingController();
+  final textCon = new TextEditingController();
 
   Future getObject() async {
     try {
-      const JsonCodec json = JsonCodec();
+      //const JsonCodec json = JsonCodec();
       final response = await Dio().get(
           'https://ipfs.io/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m#x-ipfs-companion-no-redirect');
       var data = response.toString();
@@ -99,13 +100,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future sendObject() async {
     try {
-      const JsonCodec json = JsonCodec();
-      final response = await Dio().post('https://ipfs.io/', data: hash);
+      FormData formData = FormData.fromMap({"file": textCon.text});
+      //const JsonCodec json = JsonCodec();
+      final response = await Dio().post(
+          'https://ipfs.infura.io:5001/api/v0/add?pin=false',
+          data: formData);
       var data = response.toString();
       //var json_decode = json.decode(data);
 
       setState(() {
-        hash = hashCon.text;
+        //textCon.text = data;
+        text = textCon.text;
       });
 
       //JsonEncoder encoder = JsonEncoder.withIndent('  ');
@@ -121,17 +126,17 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-      print('Incremented by one');
-    });
-  }
+  // void _incrementCounter() {
+  //   setState(() {
+  //     // This call to setState tells the Flutter framework that something has
+  //     // changed in this State, which causes it to rerun the build method below
+  //     // so that the display can reflect the updated values. If we changed
+  //     // _counter without calling setState(), then the build method would not be
+  //     // called again, and so nothing would appear to happen.
+  //     _counter++;
+  //     print('Incremented by one');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
-                controller: hashCon,
+                controller: textCon,
                 decoration: InputDecoration(
                     //border: InputBorder.none,
                     hintText: 'Enter text',
@@ -204,7 +209,15 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(fontSize: 15.0),
             ),
             Text(
-              'Sent Hash appears here:',
+              'Sent text appears here:',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            Text(
+              '$text',
+              style: TextStyle(fontSize: 15.0),
+            ),
+            Text(
+              'Hash of sent text appears here:',
               style: Theme.of(context).textTheme.headline6,
             ),
             Text(
