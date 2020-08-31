@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // import 'package:path/path.dart';
 // import 'package:protobuf/protobuf.dart';
 import 'package:dio/dio.dart';
-//import 'dart:convert';
+import 'dart:convert';
 //import 'package:js/js.dart';
 
 void main() {
@@ -67,7 +67,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   //int _counter = 0;
-  String jsoon;
+  String check;
   String text;
   String hash;
   String teststr = "this is a test";
@@ -76,19 +76,18 @@ class _MyHomePageState extends State<MyHomePage> {
   Future getObject() async {
     try {
       //const JsonCodec json = JsonCodec();
-      final response = await Dio().get(
-          'https://ipfs.io/ipfs/bafybeifx7yeb55armcsxwwitkymga5xf53dxiarykms3ygqic223w5sk3m#x-ipfs-companion-no-redirect');
+      final response = await Dio().get('https://ipfs.io/ipfs/$hash');
       var data = response.toString();
-      //var json_decode = json.decode(data);
+      //var decodedJson = json.decode(data);
 
       setState(() {
-        jsoon = data;
+        check = data;
       });
 
       //JsonEncoder encoder = JsonEncoder.withIndent('  ');
       //String prettyprint = encoder.convert(json);
 
-      //var object = Object.fromJson(json_decode);
+      //var object = Object.fromJson(decodedJson);
       print(data);
 
       return data;
@@ -101,23 +100,25 @@ class _MyHomePageState extends State<MyHomePage> {
   Future sendObject() async {
     try {
       FormData formData = FormData.fromMap({"file": textCon.text});
-      //const JsonCodec json = JsonCodec();
+      const JsonCodec json = JsonCodec();
       final response = await Dio().post(
           'https://ipfs.infura.io:5001/api/v0/add?pin=false',
           data: formData);
       var data = response.toString();
-      //var json_decode = json.decode(data);
+      var decodedJson = json.decode(data);
 
       setState(() {
         //textCon.text = data;
         text = textCon.text;
+        hash = decodedJson['Hash'];
       });
 
       //JsonEncoder encoder = JsonEncoder.withIndent('  ');
       //String prettyprint = encoder.convert(json);
 
-      //var object = Object.fromJson(json_decode);
-      print(data);
+      //var object = Object.fromJson(decodedJson);
+      //print(data);
+      print(decodedJson);
 
       return data;
       //print(prettyprint);
@@ -187,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 splashColor: Colors.blueAccent,
                 onPressed: getObject,
                 child: Text(
-                  "Receive from Dummy IPFS",
+                  "Receive from IPFS",
                 )),
             FlatButton(
                 color: Colors.blue,
@@ -205,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.headline6,
             ),
             Text(
-              '$jsoon',
+              '$check',
               style: TextStyle(fontSize: 15.0),
             ),
             Text(
