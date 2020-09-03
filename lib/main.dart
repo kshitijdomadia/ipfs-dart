@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future sendObject() async {
     try {
-      FormData formData = FormData.fromMap({"name": textCon1, "age": text});
+      FormData formData = FormData.fromMap({"name": textCon1, "age": textCon2});
       const JsonCodec json = JsonCodec();
       final response = await Dio().post(
           'https://ipfs.infura.io:5001/api/v0/add?pin=false',
