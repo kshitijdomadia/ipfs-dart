@@ -71,7 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String text;
   String hash;
   String teststr = "this is a test";
-  final textCon = new TextEditingController();
+  final textCon1 = new TextEditingController();
+  final textCon2 = new TextEditingController();
 
   Future getObject() async {
     try {
@@ -99,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future sendObject() async {
     try {
-      FormData formData = FormData.fromMap({"file": textCon.text});
+      FormData formData = FormData.fromMap({"name": textCon1, "age": text});
       const JsonCodec json = JsonCodec();
       final response = await Dio().post(
           'https://ipfs.infura.io:5001/api/v0/add?pin=false',
@@ -108,8 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
       var decodedJson = json.decode(data);
 
       setState(() {
-        //textCon.text = data;
-        text = textCon.text;
+        //textCon1.text = data;
+        text = textCon1.text;
         hash = decodedJson['Hash'];
       });
 
@@ -174,10 +175,16 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
-                controller: textCon,
+                controller: textCon1,
                 decoration: InputDecoration(
                     //border: InputBorder.none,
-                    hintText: 'Enter text',
+                    hintText: 'Enter text 1',
+                    alignLabelWithHint: true)),
+            TextField(
+                controller: textCon2,
+                decoration: InputDecoration(
+                    //border: InputBorder.none,
+                    hintText: 'Enter text 2',
                     alignLabelWithHint: true)),
             FlatButton(
                 color: Colors.blue,
