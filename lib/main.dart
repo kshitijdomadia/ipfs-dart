@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 // import 'package:chopper/chopper.dart';
 // import 'package:grpc/grpc.dart';
 // import 'package:path/path.dart';
@@ -67,29 +67,34 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   //int _counter = 0;
-  String check;
+  Map check;
   String text;
+  String name;
+  String age;
   String hash;
   String teststr = "this is a test";
-  final textCon1 = new TextEditingController();
-  final textCon2 = new TextEditingController();
+  static final textCon1 = new TextEditingController();
+  static final textCon2 = new TextEditingController();
+  Map jsonfn = {'Name': textCon1.text, 'Age': textCon2.text};
 
   Future getObject() async {
     try {
       //const JsonCodec json = JsonCodec();
       final response = await Dio().get('https://ipfs.io/ipfs/$hash');
       var data = response.toString();
-      //var decodedJson = json.decode(data);
+      var decodedJson = json.decode(data);
 
       setState(() {
-        check = data;
+        check = decodedJson;
+        name = decodedJson['Name'];
+        age = decodedJson['Age'];
       });
 
       //JsonEncoder encoder = JsonEncoder.withIndent('  ');
       //String prettyprint = encoder.convert(json);
 
       //var object = Object.fromJson(decodedJson);
-      print(data);
+      print(decodedJson);
 
       return data;
       //print(prettyprint);
@@ -100,7 +105,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future sendObject() async {
     try {
-      FormData formData = FormData.fromMap({"name": textCon1, "age": textCon2});
+      var body = jsonEncode({'Name': textCon1.text, 'Age': textCon2.text});
+      // final FormData formData =
+      //     FormData.from({"name": textCon1.text, "age": textCon2.text});
+      final FormData formData = FormData.fromMap({"file": body});
+      // var request = http.MultipartRequest('POST',
+      //     Uri.parse('https://ipfs.infura.io:5001/api/v0/add?pin=false'));
+      // request.fields['key'] = 'value';
       const JsonCodec json = JsonCodec();
       final response = await Dio().post(
           'https://ipfs.infura.io:5001/api/v0/add?pin=false',
@@ -214,6 +225,22 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$check',
+              style: TextStyle(fontSize: 15.0),
+            ),
+            Text(
+              'Name:',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            Text(
+              '$name',
+              style: TextStyle(fontSize: 15.0),
+            ),
+            Text(
+              'Age:',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            Text(
+              '$age',
               style: TextStyle(fontSize: 15.0),
             ),
             Text(
