@@ -1,16 +1,14 @@
-# ipfsSCDemo
+# IPFS Dart Prototype
 
-A new Flutter project.
+This Flutter project aims at sending and receiving text to and from IPFS (In JSON specifically). It makes use of the Infura API for IPFS.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+The prototype focuses on 2 things specifically. The text entered and the hash. 
 
-A few resources to get you started if this is your first Flutter project:
+Steps:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Enter the text in the text field.
+2. Click the send button. The app receives the hash as a response.
+3. Click receive button to receive the same text you had entered from IPFS using the hash that was generated when you first sent the data.
+4. The received data can be easily manipulated to display fields that you like as it will be in the JSON format.
